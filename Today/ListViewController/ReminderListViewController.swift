@@ -8,9 +8,7 @@
 import UIKit
 
 class ReminderListViewController: UICollectionViewController {
-    typealias ReminderCellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, String>
-    typealias DataSource = UICollectionViewDiffableDataSource<Int, String>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, String>
+    
 
     private lazy var dataSource = makeDataSource()
     
@@ -30,26 +28,8 @@ class ReminderListViewController: UICollectionViewController {
         return UICollectionViewCompositionalLayout.list(using: listConfiguration)
     }
     
-    private func reminderCellRegistration() -> ReminderCellRegistration {
-        UICollectionView.CellRegistration {
-            (cell: UICollectionViewListCell, indexPath: IndexPath, itemIdentifier: String) in
-            let reminder = Reminder.sampleData[indexPath.item]
-            
-            // Cell Content Configuration
-            var contentConfiguration = cell.defaultContentConfiguration()
-            contentConfiguration.text = reminder.title
-            contentConfiguration.textProperties.color = .darkGray
-            cell.contentConfiguration = contentConfiguration
-            
-            // Cell Background Configuration
-            var backgroundConfiguration = cell.defaultBackgroundConfiguration()
-            backgroundConfiguration.cornerRadius = 8
-            cell.backgroundConfiguration = backgroundConfiguration
-        }
-    }
-    
     private func makeDataSource() -> DataSource {
-        let cellRegistration = reminderCellRegistration()
+        let cellRegistration = UICollectionView.CellRegistration(handler: cellRegistrationHandler)
         return DataSource(collectionView: collectionView) {
             collectionView, indexPath, itemIdentifier in
             return collectionView.dequeueConfiguredReusableCell(
