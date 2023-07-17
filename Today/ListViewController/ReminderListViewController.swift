@@ -8,19 +8,26 @@
 import UIKit
 
 class ReminderListViewController: UICollectionViewController {
-    
-
     private lazy var dataSource = makeDataSource()
+    
+    var reminders: [Reminder] = Reminder.sampleData
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionView.collectionViewLayout = listLayout()
         collectionView.dataSource = dataSource
-        let initialSnapshot = makeSnapshot(from: Reminder.sampleData)
-        dataSource.apply(initialSnapshot, animatingDifferences: false)
+        updateSnapshot()
     }
 
+    func updateSnapshot(reloading ids: [Reminder.ID] = []) {
+        var snapshot = makeSnapshot(for: reminders)
+        if !ids.isEmpty {
+            snapshot.reloadItems(ids)
+        }
+        dataSource.apply(snapshot)
+    }
+    
     private func listLayout() -> UICollectionViewCompositionalLayout {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
         listConfiguration.showsSeparators = false
@@ -37,10 +44,10 @@ class ReminderListViewController: UICollectionViewController {
         }
     }
     
-    private func makeSnapshot(from data: [Reminder]) -> Snapshot {
+    private func makeSnapshot(for data: [Reminder]) -> Snapshot {
         var snapshot = Snapshot()
         snapshot.appendSections([0])
-        snapshot.appendItems(data.map { $0.title })
+        snapshot.appendItems(data.map { $0.id })
         return snapshot
     }
 }
