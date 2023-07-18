@@ -15,6 +15,7 @@ class ReminderViewController: UICollectionViewController {
         }
     }
     var workingReminder: Reminder
+    var isAddingNewReminder = false
     var onChange: (Reminder) -> Void
     
     private lazy var dataSource = makeDataSource()
@@ -49,7 +50,11 @@ class ReminderViewController: UICollectionViewController {
         if editing {
             prepareForEditing()
         } else {
-            prepareForViewing()
+            if isAddingNewReminder {
+                onChange(workingReminder)
+            } else {
+                prepareForViewing()
+            }
         }
     }
     

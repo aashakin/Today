@@ -14,8 +14,8 @@ class ReminderListViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.collectionViewLayout = makeLayout()
-        collectionView.dataSource = dataSource
+        setupNavigationBar()
+        setupCollectionView()
         updateSnapshot()
     }
 
@@ -33,11 +33,28 @@ class ReminderListViewController: UICollectionViewController {
         return false
     }
     
+    private func setupCollectionView() {
+        collectionView.collectionViewLayout = makeLayout()
+        collectionView.dataSource = dataSource
+    }
+    
     private func makeLayout() -> UICollectionViewCompositionalLayout {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
         listConfiguration.showsSeparators = false
         listConfiguration.backgroundColor = .clear
+        listConfiguration.trailingSwipeActionsConfigurationProvider = makeSwipeActions(for:)
         return UICollectionViewCompositionalLayout.list(using: listConfiguration)
+    }
+    
+    private func setupNavigationBar() {
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add,
+                                        target: self,
+                                        action: #selector(didPressAddButton(_:)))
+        addButton.accessibilityLabel = NSLocalizedString("Add reminder", comment: "Add button accessibility label")
+        navigationItem.rightBarButtonItem = addButton
+        if #available(iOS 16, *) {
+            navigationItem.style = .navigator
+        }
     }
     
     private func makeDataSource() -> DataSource {
@@ -63,6 +80,21 @@ class ReminderListViewController: UICollectionViewController {
             self?.updateSnapshot(reloading: [reminder.id])
         }
         navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
+        guard let indexPath = indexPath,
+              let id = dataSource.itemIdentifier(for: indexPath)
+        else {
+            return nil
+        }
+        let deleteActionTitle = NSLocalizedString("Delete", comment: "Delete action title")
+        let deleteAction = UIContextualAction(style: .destructive, title: deleteActionTitle) { [weak self] _, _, completion in
+            self?.deleteReminder(withId: id)
+            self?.updateSnapshot()
+            completion(false)
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
 
