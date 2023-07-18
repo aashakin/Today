@@ -48,6 +48,15 @@ extension ReminderListViewController {
         ]
     }
     
+    func updateSnapshot(reloading ids: [Reminder.ID] = []) {
+        let idsThatChanged = ids.filter { id in filteredReminders.contains(where: { $0.id == id}) }
+        var snapshot = makeSnapshot(for: filteredReminders)
+        if !idsThatChanged.isEmpty {
+            snapshot.reloadItems(idsThatChanged)
+        }
+        dataSource.apply(snapshot)
+    }
+    
     func reminder(withId id: Reminder.ID) -> Reminder {
         let index = reminders.indexOfReminder(withId: id)
         return reminders[index]
@@ -72,6 +81,13 @@ extension ReminderListViewController {
     func deleteReminder(withId id: Reminder.ID) {
         let index = reminders.indexOfReminder(withId: id)
         reminders.remove(at: index)
+    }
+    
+    private func makeSnapshot(for data: [Reminder]) -> Snapshot {
+        var snapshot = Snapshot()
+        snapshot.appendSections([0])
+        snapshot.appendItems(data.map { $0.id })
+        return snapshot
     }
     
     private func doneButtonConfiguration(for reminder: Reminder) -> UICellAccessory.CustomViewConfiguration {

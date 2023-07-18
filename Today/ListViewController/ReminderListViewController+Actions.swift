@@ -34,4 +34,9 @@ extension ReminderListViewController {
     @objc func didCancelAdd(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
+    
+    @objc func didChangeFilter(_ sender: UISegmentedControl) {
+        filter = ReminderFilter(rawValue: sender.selectedSegmentIndex) ?? .today
+        updateSnapshot()
+    }
 }

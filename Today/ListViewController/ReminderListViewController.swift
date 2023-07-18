@@ -8,27 +8,32 @@
 import UIKit
 
 class ReminderListViewController: UICollectionViewController {
-    private lazy var dataSource = makeDataSource()
+    lazy var dataSource = makeDataSource()
     
     var reminders: [Reminder] = Reminder.sampleData
+    var filter: ReminderFilter = .today
+    var filteredReminders: [Reminder] {
+        return reminders.filter { filter.shouldInclude(date: $0.dueDate)}.sorted {
+            $0.dueDate < $1.dueDate
+        }
+    }
+    
+    private let filterControl = UISegmentedControl(items: [
+        ReminderFilter.today.name,
+        ReminderFilter.future.name,
+        ReminderFilter.all.name
+    ])
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
+        setupFilter()
         setupCollectionView()
         updateSnapshot()
     }
-
-    func updateSnapshot(reloading ids: [Reminder.ID] = []) {
-        var snapshot = makeSnapshot(for: reminders)
-        if !ids.isEmpty {
-            snapshot.reloadItems(ids)
-        }
-        dataSource.apply(snapshot)
-    }
     
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        let id = reminders[indexPath.item].id
+        let id = filteredReminders[indexPath.item].id
         pushDetailViewForReminder(withId: id)
         return false
     }
@@ -36,6 +41,11 @@ class ReminderListViewController: UICollectionViewController {
     private func setupCollectionView() {
         collectionView.collectionViewLayout = makeLayout()
         collectionView.dataSource = dataSource
+    }
+    
+    private func setupFilter() {
+        filterControl.selectedSegmentIndex = filter.rawValue
+        filterControl.addTarget(self, action: #selector(didChangeFilter(_:)), for: .valueChanged)
     }
     
     private func makeLayout() -> UICollectionViewCompositionalLayout {
@@ -47,6 +57,7 @@ class ReminderListViewController: UICollectionViewController {
     }
     
     private func setupNavigationBar() {
+        navigationItem.titleView = filterControl
         let addButton = UIBarButtonItem(barButtonSystemItem: .add,
                                         target: self,
                                         action: #selector(didPressAddButton(_:)))
@@ -64,13 +75,6 @@ class ReminderListViewController: UICollectionViewController {
             return collectionView.dequeueConfiguredReusableCell(
                 using: cellRegistration, for: indexPath, item: itemIdentifier)
         }
-    }
-    
-    private func makeSnapshot(for data: [Reminder]) -> Snapshot {
-        var snapshot = Snapshot()
-        snapshot.appendSections([0])
-        snapshot.appendItems(data.map { $0.id })
-        return snapshot
     }
     
     private func pushDetailViewForReminder(withId id: Reminder.ID) {

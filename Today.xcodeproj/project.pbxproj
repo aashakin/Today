@@ -29,6 +29,7 @@
 		1F89562A2A667513003C2E16 /* UIContentConfiguration+Stateless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8956292A667513003C2E16 /* UIContentConfiguration+Stateless.swift */; };
 		1F89562C2A667C7F003C2E16 /* TextViewContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89562B2A667C7F003C2E16 /* TextViewContentView.swift */; };
 		1F89562E2A6681D3003C2E16 /* DatePickerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89562D2A6681D3003C2E16 /* DatePickerContentView.swift */; };
+		1F8956302A66C657003C2E16 /* ReminderFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89562F2A66C656003C2E16 /* ReminderFilter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		1F8956292A667513003C2E16 /* UIContentConfiguration+Stateless.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIContentConfiguration+Stateless.swift"; sourceTree = "<group>"; };
 		1F89562B2A667C7F003C2E16 /* TextViewContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewContentView.swift; sourceTree = "<group>"; };
 		1F89562D2A6681D3003C2E16 /* DatePickerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerContentView.swift; sourceTree = "<group>"; };
+		1F89562F2A66C656003C2E16 /* ReminderFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderFilter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				1F89560C2A650E51003C2E16 /* Reminder.swift */,
 				1F89560E2A652A8C003C2E16 /* UIColor+Today.swift */,
 				1F8956102A652B09003C2E16 /* Date+Today.swift */,
+				1F89562F2A66C656003C2E16 /* ReminderFilter.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 				1F89561A2A658E03003C2E16 /* ReminderViewController.swift in Sources */,
 				1F8955F82A650B79003C2E16 /* AppDelegate.swift in Sources */,
 				1F8956282A6673A3003C2E16 /* TextFieldContentView.swift in Sources */,
+				1F8956302A66C657003C2E16 /* ReminderFilter.swift in Sources */,
 				1F8956212A6659F7003C2E16 /* ReminderViewController+Section.swift in Sources */,
 				1F89562C2A667C7F003C2E16 /* TextViewContentView.swift in Sources */,
 				1F89560F2A652A8C003C2E16 /* UIColor+Today.swift in Sources */,
