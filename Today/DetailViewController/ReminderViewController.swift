@@ -9,13 +9,20 @@ import UIKit
 
 class ReminderViewController: UICollectionViewController {
     
-    var reminder: Reminder
+    var reminder: Reminder {
+        didSet {
+            onChange(reminder)
+        }
+    }
+    var workingReminder: Reminder
+    var onChange: (Reminder) -> Void
     
     private lazy var dataSource = makeDataSource()
     
-    init(reminder: Reminder) {
+    init(reminder: Reminder, onChange: @escaping (Reminder) -> Void) {
         self.reminder = reminder
-        
+        self.workingReminder = reminder
+        self.onChange = onChange
         func makeLayout() -> UICollectionViewCompositionalLayout {
             var listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
             listConfiguration.showsSeparators = false
@@ -40,9 +47,9 @@ class ReminderViewController: UICollectionViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         if editing {
-            updateSnapshotForEditing()
+            prepareForEditing()
         } else {
-            updateSnapshotForViewing()
+            prepareForViewing()
         }
     }
     
@@ -78,6 +85,22 @@ class ReminderViewController: UICollectionViewController {
         dataSource.apply(snapshot)
     }
     
+    func prepareForViewing() {
+        navigationItem.leftBarButtonItem = nil
+        
+        if workingReminder != reminder {
+            reminder = workingReminder
+        }
+        updateSnapshotForViewing()
+    }
+    
+    func prepareForEditing() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                                           target: self,
+                                                           action: #selector(didCancelEdit))
+        updateSnapshotForEditing()
+    }
+    
     func section(for indexPath: IndexPath) -> Section {
         let sectionNumber = isEditing ? indexPath.section + 1 : indexPath.section
         guard let section = Section(rawValue: sectionNumber) else {
@@ -92,5 +115,10 @@ class ReminderViewController: UICollectionViewController {
         if #available(iOS 16, *) {
             navigationItem.style = .navigator
         }
+    }
+    
+    @objc private func didCancelEdit() {
+        workingReminder = reminder
+        setEditing(false, animated: true)
     }
 }
