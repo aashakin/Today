@@ -14,7 +14,6 @@ class ReminderListViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
         collectionView.collectionViewLayout = makeLayout()
         collectionView.dataSource = dataSource
         updateSnapshot()
@@ -61,13 +60,6 @@ class ReminderListViewController: UICollectionViewController {
         let reminder = reminder(withId: id)
         let viewController = ReminderViewController(reminder: reminder)
         navigationController?.pushViewController(viewController, animated: true)
-    }
-    
-    private func setupNavigationBar() {
-        navigationItem.title = NSLocalizedString("Reminder", comment: "Reminder view controller title")
-        if #available(iOS 16, *) {
-            navigationItem.style = .navigator
-        }
     }
 }
 

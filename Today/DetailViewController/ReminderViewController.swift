@@ -19,6 +19,7 @@ class ReminderViewController: UICollectionViewController {
         func makeLayout() -> UICollectionViewCompositionalLayout {
             var listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
             listConfiguration.showsSeparators = false
+            listConfiguration.headerMode = .firstItemInSection
             return UICollectionViewCompositionalLayout.list(using: listConfiguration)
         }
         
@@ -31,9 +32,18 @@ class ReminderViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupNavigationBar()
         collectionView.dataSource = dataSource
-        updateSnapshot()
+        updateSnapshotForViewing()
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        if editing {
+            updateSnapshotForEditing()
+        } else {
+            updateSnapshotForViewing()
+        }
     }
     
     func text(for row: Row) -> String? {
@@ -42,6 +52,7 @@ class ReminderViewController: UICollectionViewController {
         case .notes: return reminder.notes
         case .time: return reminder.dueDate.formatted(date: .omitted, time: .shortened)
         case .title: return reminder.title
+        default: return nil
         }
     }
     
@@ -52,15 +63,35 @@ class ReminderViewController: UICollectionViewController {
         }
     }
     
-    private func makeSnapshot() -> Snapshot {
+    private func updateSnapshotForViewing() {
         var snapshot = Snapshot()
-        snapshot.appendSections([0])
-        snapshot.appendItems([.title, .date, .time, .notes], toSection: 0)
-        return snapshot
+        snapshot.appendSections([.view])
+        snapshot.appendItems([.header(""), .title, .date, .time, .notes], toSection: .view)
+        dataSource.apply(snapshot)
     }
     
-    private func updateSnapshot() {
-        let snapshot = makeSnapshot()
+    private func updateSnapshotForEditing() {
+        var snapshot = Snapshot()
+        snapshot.appendSections([.title, .date, .notes])
+        snapshot.appendItems([.header(Section.title.name)], toSection: .title)
+        snapshot.appendItems([.header(Section.date.name)], toSection: .date)
+        snapshot.appendItems([.header(Section.notes.name)], toSection: .notes)
         dataSource.apply(snapshot)
+    }
+    
+    func section(for indexPath: IndexPath) -> Section {
+        let sectionNumber = isEditing ? indexPath.section + 1 : indexPath.section
+        guard let section = Section(rawValue: sectionNumber) else {
+            fatalError("Unable to find matching section")
+        }
+        return section
+    }
+    
+    private func setupNavigationBar() {
+        navigationItem.title = NSLocalizedString("Reminder", comment: "Reminder view controller title")
+        navigationItem.rightBarButtonItem = editButtonItem
+        if #available(iOS 16, *) {
+            navigationItem.style = .navigator
+        }
     }
 }
