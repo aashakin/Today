@@ -55,6 +55,7 @@ extension ReminderListViewController {
             snapshot.reloadItems(idsThatChanged)
         }
         dataSource.apply(snapshot)
+        headerView?.progress = progress
     }
     
     func reminder(withId id: Reminder.ID) -> Reminder {
