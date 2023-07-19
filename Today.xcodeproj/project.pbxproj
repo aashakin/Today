@@ -36,6 +36,7 @@
 		1F8956382A67DF38003C2E16 /* EKEventStore+AsyncFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8956372A67DF38003C2E16 /* EKEventStore+AsyncFetch.swift */; };
 		1F89563A2A67E142003C2E16 /* Reminder+EKReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8956392A67E142003C2E16 /* Reminder+EKReminder.swift */; };
 		1F89563C2A67E28A003C2E16 /* ReminderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89563B2A67E28A003C2E16 /* ReminderStore.swift */; };
+		1F89563E2A67F15F003C2E16 /* EKReminder+Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89563D2A67F15F003C2E16 /* EKReminder+Reminder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		1F8956372A67DF38003C2E16 /* EKEventStore+AsyncFetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EKEventStore+AsyncFetch.swift"; sourceTree = "<group>"; };
 		1F8956392A67E142003C2E16 /* Reminder+EKReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reminder+EKReminder.swift"; sourceTree = "<group>"; };
 		1F89563B2A67E28A003C2E16 /* ReminderStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderStore.swift; sourceTree = "<group>"; };
+		1F89563D2A67F15F003C2E16 /* EKReminder+Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EKReminder+Reminder.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 				1F8956352A67DE94003C2E16 /* TodayError.swift */,
 				1F8956372A67DF38003C2E16 /* EKEventStore+AsyncFetch.swift */,
 				1F8956392A67E142003C2E16 /* Reminder+EKReminder.swift */,
+				1F89563D2A67F15F003C2E16 /* EKReminder+Reminder.swift */,
 				1F89563B2A67E28A003C2E16 /* ReminderStore.swift */,
 			);
 			path = Models;
@@ -260,6 +263,7 @@
 				1F8956142A652F37003C2E16 /* ReminderListViewController+DataSource.swift in Sources */,
 				1F8956382A67DF38003C2E16 /* EKEventStore+AsyncFetch.swift in Sources */,
 				1F89561F2A6596EE003C2E16 /* ReminderViewController+DataSource.swift in Sources */,
+				1F89563E2A67F15F003C2E16 /* EKReminder+Reminder.swift in Sources */,
 				1F8955FA2A650B79003C2E16 /* SceneDelegate.swift in Sources */,
 				1F8956342A67D9DC003C2E16 /* CAGradientLayer+ReminderListStyle.swift in Sources */,
 				1F89563C2A67E28A003C2E16 /* ReminderStore.swift in Sources */,
