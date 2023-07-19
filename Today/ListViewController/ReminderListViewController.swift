@@ -10,7 +10,7 @@ import UIKit
 class ReminderListViewController: UICollectionViewController {
     lazy var dataSource = makeDataSource()
     
-    var reminders: [Reminder] = Reminder.sampleData
+    var reminders: [Reminder] = []
     var listStyle: ReminderListStyle = .today
     var filteredReminders: [Reminder] {
         return reminders.filter { listStyle.shouldInclude(date: $0.dueDate)}.sorted {
@@ -40,6 +40,7 @@ class ReminderListViewController: UICollectionViewController {
         setupProgressView()
         setupCollectionView()
         updateSnapshot()
+        prepareReminderStore()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +61,21 @@ class ReminderListViewController: UICollectionViewController {
             return
         }
         progressView.progress = progress
+    }
+    
+    func showError(_ error: Error) {
+        let alertTitle = NSLocalizedString("Error", comment: "Error alert title")
+        let alert = UIAlertController(title: alertTitle,
+                                      message: error.localizedDescription,
+                                      preferredStyle: .alert)
+        
+        let actionTitle = NSLocalizedString("OK", comment: "Alert OK button title")
+        let action = UIAlertAction(title: actionTitle, style: .default) { [weak self] _ in
+            self?.dismiss(animated: true)
+        }
+        alert.addAction(action)
+        
+        present(alert, animated: true)
     }
     
     private func setupCollectionView() {
