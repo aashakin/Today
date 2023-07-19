@@ -11,9 +11,9 @@ class ReminderListViewController: UICollectionViewController {
     lazy var dataSource = makeDataSource()
     
     var reminders: [Reminder] = Reminder.sampleData
-    var filter: ReminderFilter = .today
+    var listStyle: ReminderListStyle = .today
     var filteredReminders: [Reminder] {
-        return reminders.filter { filter.shouldInclude(date: $0.dueDate)}.sorted {
+        return reminders.filter { listStyle.shouldInclude(date: $0.dueDate)}.sorted {
             $0.dueDate < $1.dueDate
         }
     }
@@ -28,9 +28,9 @@ class ReminderListViewController: UICollectionViewController {
     var headerView: ProgressHeaderView?
     
     private let filterControl = UISegmentedControl(items: [
-        ReminderFilter.today.name,
-        ReminderFilter.future.name,
-        ReminderFilter.all.name
+        ReminderListStyle.today.name,
+        ReminderListStyle.future.name,
+        ReminderListStyle.all.name
     ])
     
     override func viewDidLoad() {
@@ -40,6 +40,11 @@ class ReminderListViewController: UICollectionViewController {
         setupProgressView()
         setupCollectionView()
         updateSnapshot()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        refreshBackground()
     }
     
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
@@ -64,7 +69,7 @@ class ReminderListViewController: UICollectionViewController {
     }
     
     private func setupFilter() {
-        filterControl.selectedSegmentIndex = filter.rawValue
+        filterControl.selectedSegmentIndex = listStyle.rawValue
         filterControl.addTarget(self, action: #selector(didChangeFilter(_:)), for: .valueChanged)
     }
     
@@ -109,6 +114,14 @@ class ReminderListViewController: UICollectionViewController {
             return collectionView.dequeueConfiguredReusableCell(
                 using: cellRegistration, for: indexPath, item: itemIdentifier)
         }
+    }
+    
+    func refreshBackground() {
+        collectionView.backgroundView = nil
+        let backgroundView = UIView()
+        let gradientLayer = CAGradientLayer.gradientLayer(for: listStyle, in: collectionView.frame)
+        backgroundView.layer.addSublayer(gradientLayer)
+        collectionView.backgroundView = backgroundView
     }
     
     private func pushDetailViewForReminder(withId id: Reminder.ID) {

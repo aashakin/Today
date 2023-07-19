@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ReminderFilter: Int {
+enum ReminderListStyle: Int {
     case today
     case future
     case all

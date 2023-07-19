@@ -29,8 +29,9 @@
 		1F89562A2A667513003C2E16 /* UIContentConfiguration+Stateless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8956292A667513003C2E16 /* UIContentConfiguration+Stateless.swift */; };
 		1F89562C2A667C7F003C2E16 /* TextViewContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89562B2A667C7F003C2E16 /* TextViewContentView.swift */; };
 		1F89562E2A6681D3003C2E16 /* DatePickerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89562D2A6681D3003C2E16 /* DatePickerContentView.swift */; };
-		1F8956302A66C657003C2E16 /* ReminderFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89562F2A66C656003C2E16 /* ReminderFilter.swift */; };
+		1F8956302A66C657003C2E16 /* ReminderListStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89562F2A66C656003C2E16 /* ReminderListStyle.swift */; };
 		1F8956322A67A623003C2E16 /* ProgressHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8956312A67A623003C2E16 /* ProgressHeaderView.swift */; };
+		1F8956342A67D9DC003C2E16 /* CAGradientLayer+ReminderListStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8956332A67D9DC003C2E16 /* CAGradientLayer+ReminderListStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,8 +59,9 @@
 		1F8956292A667513003C2E16 /* UIContentConfiguration+Stateless.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIContentConfiguration+Stateless.swift"; sourceTree = "<group>"; };
 		1F89562B2A667C7F003C2E16 /* TextViewContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewContentView.swift; sourceTree = "<group>"; };
 		1F89562D2A6681D3003C2E16 /* DatePickerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerContentView.swift; sourceTree = "<group>"; };
-		1F89562F2A66C656003C2E16 /* ReminderFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderFilter.swift; sourceTree = "<group>"; };
+		1F89562F2A66C656003C2E16 /* ReminderListStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderListStyle.swift; sourceTree = "<group>"; };
 		1F8956312A67A623003C2E16 /* ProgressHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHeaderView.swift; sourceTree = "<group>"; };
+		1F8956332A67D9DC003C2E16 /* CAGradientLayer+ReminderListStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAGradientLayer+ReminderListStyle.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,7 +114,8 @@
 				1F89560C2A650E51003C2E16 /* Reminder.swift */,
 				1F89560E2A652A8C003C2E16 /* UIColor+Today.swift */,
 				1F8956102A652B09003C2E16 /* Date+Today.swift */,
-				1F89562F2A66C656003C2E16 /* ReminderFilter.swift */,
+				1F89562F2A66C656003C2E16 /* ReminderListStyle.swift */,
+				1F8956332A67D9DC003C2E16 /* CAGradientLayer+ReminderListStyle.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -230,7 +233,7 @@
 				1F89561A2A658E03003C2E16 /* ReminderViewController.swift in Sources */,
 				1F8955F82A650B79003C2E16 /* AppDelegate.swift in Sources */,
 				1F8956282A6673A3003C2E16 /* TextFieldContentView.swift in Sources */,
-				1F8956302A66C657003C2E16 /* ReminderFilter.swift in Sources */,
+				1F8956302A66C657003C2E16 /* ReminderListStyle.swift in Sources */,
 				1F8956212A6659F7003C2E16 /* ReminderViewController+Section.swift in Sources */,
 				1F89562C2A667C7F003C2E16 /* TextViewContentView.swift in Sources */,
 				1F89560F2A652A8C003C2E16 /* UIColor+Today.swift in Sources */,
@@ -243,6 +246,7 @@
 				1F8956142A652F37003C2E16 /* ReminderListViewController+DataSource.swift in Sources */,
 				1F89561F2A6596EE003C2E16 /* ReminderViewController+DataSource.swift in Sources */,
 				1F8955FA2A650B79003C2E16 /* SceneDelegate.swift in Sources */,
+				1F8956342A67D9DC003C2E16 /* CAGradientLayer+ReminderListStyle.swift in Sources */,
 				1F89562E2A6681D3003C2E16 /* DatePickerContentView.swift in Sources */,
 				1F89560D2A650E51003C2E16 /* Reminder.swift in Sources */,
 			);
